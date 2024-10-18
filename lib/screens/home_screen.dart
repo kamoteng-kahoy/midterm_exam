@@ -31,9 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> deletePlayer(int playerID) async {
-    // Implement the delete functionality here
-    // After deleting, refresh the player list
-    await fetchPlayers();
+    try {
+      await playerService.deletePlayer(playerID);
+      await fetchPlayers();
+    } catch (e) {
+      print('Failed to delete player: $e');
+    }
   }
 
   @override
@@ -41,6 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('NBA Players'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddPlayerScreen()),
+              ).then((_) => fetchPlayers()); // Refresh list after adding a new player
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Player>>(
         future: players,
@@ -81,15 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddPlayerScreen()),
-          ).then((_) => fetchPlayers()); // Refresh list after adding a new player
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }

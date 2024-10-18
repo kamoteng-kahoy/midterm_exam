@@ -75,7 +75,10 @@ class PlayerService {
     final response = await http.delete(Uri.parse('$baseUrl/$playerId'));
 
     if (response.statusCode != 200) {
+      print('Failed to delete player: ${response.statusCode} ${response.body}');
       throw Exception('Failed to delete player');
+    } else {
+      print('Player deleted successfully: ${response.body}');
     }
   }
 }
