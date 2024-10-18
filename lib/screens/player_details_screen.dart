@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import '../models/player_model.dart';
+import 'package:intl/intl.dart';
 
 class PlayerDetailsScreen extends StatelessWidget {
   final Player player;
@@ -35,15 +36,32 @@ class PlayerDetailsScreen extends StatelessWidget {
                   fontSize: 24, fontWeight: FontWeight.bold
                   )
               ),
-              Text('First Name: ${player.firstName}'),
-              Text('Last Name: ${player.lastName}'),
-              Text('Date of Birth: ${player.dateOfBirth}'),
-              Text('Height: ${player.height}'),
-              Text('Weight: ${player.weight}'),
-              Text('Position: ${player.position}'),
-              Text('Jersey Number: ${player.jerseyNumber}'),
-              Text('Team Played: ${player.teamPlayed}'),
-              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${player.jerseyNumber}  |  ${player.position}  |  ${player.teamPlayed}',
+                    style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.normal
+                    )
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Text('Date of Birth: ${DateFormat('MMMM dd, yyyy').format(DateTime.parse(player.dateOfBirth))}',
+                style: const TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.normal
+                )
+              ),
+              Text('Height: ${player.height} cm',
+                style: const TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.normal
+                )
+              ),
+              Text('Weight: ${player.weight} kg',
+                style: const TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.normal
+                )
+              ),
             ],
           ),
         ),

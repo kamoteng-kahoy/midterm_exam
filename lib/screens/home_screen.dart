@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Basketball Player Management'),
+        title: const Text('NBA Players'),
       ),
       body: FutureBuilder<List<Player>>(
         future: players,
